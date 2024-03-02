@@ -1,0 +1,32 @@
+version: '3.8'
+services:
+  web:
+    build: ./odoo/.
+    ports:
+      - 8069:8069
+    depends_on:
+      - db
+    environment:
+      - ADMIN_DB_PASS=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - USER=odoo
+      - PASSWORD=odoo
+      - DB=postgres
+    networks:
+      - my-odoo-network
+  db:
+    build: ./postgres-db/.
+    networks:
+      - my-odoo-network
+    volumes:
+      - db-data:/var/run/postgresql
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+networks:
+  my-odoo-network:
+    driver: bridge
+volumes:
+  db-data:
