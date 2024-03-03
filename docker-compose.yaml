@@ -12,7 +12,7 @@ services:
       - DB_PORT=5432
       - USER=odoo
       - PASSWORD=odoo
-      - DB=postgres
+      - DB=odoo
     networks:
       - my-odoo-network
   db:

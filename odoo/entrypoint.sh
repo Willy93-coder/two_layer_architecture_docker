@@ -7,11 +7,13 @@ port="$DB_PORT"
 
 # Create Odoo configuration file dynamically using environment variables
 echo "[options]" > /etc/odoo.conf
+echo "admin_passwd = ${ADMIN_DB_PASS}" >> /etc/odoo.conf
 echo "db_host = ${DB_HOST}" >> /etc/odoo.conf
 echo "db_port = ${DB_PORT}" >> /etc/odoo.conf
 echo "db_user = ${USER}" >> /etc/odoo.conf
 echo "db_password = ${PASSWORD}" >> /etc/odoo.conf
 echo "db_name = ${DB}" >> /etc/odoo.conf
+
 
 # Function to check PostgreSQL server availability
 check_postgres() {
@@ -32,4 +34,4 @@ chmod 600 "$PGPASSFILE"
 psql -h "$host" -U "$USER" -p "$DB_PORT" -d "$DB"
 
 # Init Odoo
-cd /odoo && python3 odoo-bin -c /etc/odoo.conf
+cd /odoo && python3 odoo-bin --addons-path=addons -i base -d ${DB} -c /etc/odoo.conf
