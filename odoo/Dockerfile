@@ -1,14 +1,27 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
-RUN apt-get update && apt-get -y install git
-RUN git clone https://github.com/odoo/odoo.git
-RUN apt install wget -y
-RUN apt-get update && apt-get install postgresql-client -y
-RUN apt install -y python3
-RUN apt install -y python3-pip
-RUN apt install -y python3-pip libldap2-dev libpq-dev libsasl2-dev
-RUN cd /odoo && pip install -r requirements.txt
-RUN apt install -y inetutils-ping
+# Install dependencies
+RUN apt-get update && apt-get install -y \ 
+    git \
+    wget \
+    postgresql-client \
+    python3 \
+    python3-pip \
+    python3-venv \
+    libldap2-dev \
+    libpq-dev \
+    libsasl2-dev \
+    build-essential \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Clone odoo project
+RUN git clone --depth 1 https://github.com/odoo/odoo.git
+
+# Install python requirements
+RUN cd /odoo && pip install --break-system-packages -r requirements.txt
+
+# Install ping
+RUN apt-get update && apt-get install -y inetutils-ping
 
 # Copy entrypoint script and make it executable
 COPY entrypoint.sh /usr/local/bin/
