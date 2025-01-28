@@ -23,7 +23,7 @@ check_postgres() {
 # Wait until PostgreSQL server is available
 while ! check_postgres; do
     echo "Esperando a que el servidor PostgreSQL esté disponible en $host..."
-    sleep 5  # Esperar 5 segundos antes de intentar nuevamente
+    sleep 5 
 done
 
 # Connect to PostgreSQL using .pgpass file for password
