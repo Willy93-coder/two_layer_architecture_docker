@@ -5,8 +5,10 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV USER=odoo
 
 # Install packages
-RUN apt-get update && \
-  apt-get install -y postgresql postgresql-client
+RUN apt-get update && apt-get install -y \ 
+  postgresql \
+  postgresql-client
+  
 RUN apt install -y inetutils-ping
 
 # Adjust PostgreSQL configurations
