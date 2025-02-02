@@ -34,4 +34,4 @@ chmod 600 "$PGPASSFILE"
 psql -h "$host" -U "$USER" -p "$DB_PORT" -d "$DB"
 
 # Init Odoo
-cd /odoo && python3 odoo-bin --addons-path=addons -i base -d ${DB} -c /etc/odoo.conf
+cd /app/odoo && python3 odoo-bin --addons-path=addons -i base -d ${DB} -c /etc/odoo.conf

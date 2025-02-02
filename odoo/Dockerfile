@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
 RUN git clone --depth 1 https://github.com/odoo/odoo.git
 
 # Install python requirements
-RUN cd /odoo && pip install --break-system-packages -r requirements.txt
+RUN cd /app/odoo && pip install --break-system-packages -r requirements.txt
 
 # Install ping
 RUN apt-get update && apt-get install -y inetutils-ping
