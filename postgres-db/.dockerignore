@@ -1,0 +1,21 @@
+# Ignore database data and dumps
+data/
+*.sql
+*.dump
+
+# Ignore system and editor files
+.DS_Store
+.vscode/
+.idea/
+*.log
+
+# Ignore Git-related files
+.git
+.gitignore
+
+# Ignore temporary or swap files
+*.swp
+*.swo
+*.bak
+*.tmp
+*.out
