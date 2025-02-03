@@ -1,0 +1,28 @@
+# Ignore system and editor files
+.DS_Store
+.vscode/
+.idea/
+*.log
+
+# Ignore Python cache and virtual environments
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.whl
+*.egg-info/
+dist/
+build/
+venv/
+.env
+
+# Ignore Git-related files
+.git
+.gitignore
+
+# Ignore temporary or swap files
+*.swp
+*.swo
+*.bak
+*.tmp
+*.out
