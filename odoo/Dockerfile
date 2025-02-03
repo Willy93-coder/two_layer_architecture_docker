@@ -1,10 +1,22 @@
-FROM ubuntu:24.04 AS base 
+FROM ubuntu:24.04 AS clone-stage 
 
 WORKDIR /app
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \ 
     git \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Clone odoo project
+RUN git clone --depth 1 https://github.com/odoo/odoo.git
+
+FROM ubuntu:24.04 AS dependency-stage
+
+WORKDIR /app
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \ 
+    inetutils-ping \
     wget \
     postgresql-client \
     python3 \
@@ -16,14 +28,11 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Clone odoo project
-RUN git clone --depth 1 https://github.com/odoo/odoo.git
+# Copy odoo
+COPY --from=clone-stage /app/odoo /app/odoo
 
 # Install python requirements
 RUN cd /app/odoo && pip install --break-system-packages -r requirements.txt
-
-# Install ping
-RUN apt-get update && apt-get install -y inetutils-ping
 
 # Copy entrypoint script and make it executable
 COPY entrypoint.sh /usr/local/bin/
