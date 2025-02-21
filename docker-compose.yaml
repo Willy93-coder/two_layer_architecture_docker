@@ -15,7 +15,12 @@ services:
     networks:
       - my-odoo-network
   db:
-    build: ./postgres-db/.
+    build:
+      context: ./postgres-db/.
+      args:
+        - USER_DB=${USER_DB}
+        - MOD=${MOD}
+        - PASSWORD=${PASSWORD}
     networks:
       - my-odoo-network
     volumes:
